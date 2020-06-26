@@ -10,21 +10,38 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.dimloglines",
-		"onCommand:extension.undimloglines"
+		"onCommand:dimloglines.dim",
+		"onCommand:undimloglines.undim"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.dimloglines",
+				"command": "dimloglines.dim",
 				"title": "dim log lines"
 			},
 			{
-				"command": "extension.undimloglines",
+				"command": "dimloglines.undim",
 				"title": "undim log lines"
 			}
-		]
+		],
+		"configuration": {
+      "properties": {
+        "dimloglines.opacity": {
+          "default": 0.2,
+          "type": "number",
+          "description": "value between 0 and 1 used for the opacity for the dimmed log lines"
+				},
+				"dimloglines.regExps": {
+					"type" : "array",
+					"default": [
+						"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;",
+						"\\w*[lL]og.*?\\.(Write|assert|debug|warning|info|information|report|success|error|fail|exception)\\s*\\(([\\s\\S]*?)\\)?\\s*?;"
+					],
+					"description": "regular expressions to identify log line"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
