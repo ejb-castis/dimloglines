@@ -6,9 +6,9 @@
 ## Features
 
 * 로그 라인 글자의 흐린 정도를 설정합니다.
-* 정규식으로 로그 라인 형태를 설정합니다.
+* 정규식으로 로그 라인 형태를 설정합니다. (정규식은 아래 Extension.Setting를 참고하세요)
 	* 두 개의 기본 정규식 값을 사용하여 다음과 같은 로그 라인 형태를 설정합니다.
-    * CPP, JAVA, JAVASCRIPT 와 같이 세미콜론(;) 으로 끝나는 로그 라인 형태를 지원합니다.
+    * CPP, JAVA, JAVASCRIPT 와 같이 ";"(세미콜론) 으로 끝나는 형태의 로그 라인을 지원합니다.
     * "xxLOG(...)" 로 시작하여 ";"(세미콜론)으로 끝나는 문장
 
     ```cpp
@@ -25,13 +25,15 @@
       LOG(error) << "hello";
     ```
 
-    * "xxlogxx.info(...)" 로 시작하여 ";"(세미콜론)으로 끝나는 문장
+    * "xxlogxx.info|debug|등등(...)" 로 시작하여 ";"(세미콜론)으로 끝나는 문장
     ```cpp
     logger.Write(string("mainThread"), string(""), CiLogEvent::eDebug, string("test"));
 
     theLogger.info(WHERE1(m_channelID), "mpeg2ts SegmentType : %s", g_cfg->GetMpeg2tsSegmentType().c_str());
 
     logger.info("hello,world");
+
+    LOGGER.debug("hello,{}",world);
     ```
 
 ## Requirements
@@ -51,7 +53,7 @@ vscode 1.46 에서 개발되었습니다.
 "dimloglines.opacity": 0.5,
 "dimloglines.regExps": [
 	"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;",
-	"\\w*[lL]og.*?\\.(Write|assert|debug|warning|info|information|report|success|error|fail|exception)\\s*\\(([\\s\\S]*?)\\)?\\s*?;"
+	"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|warning|info|information|report|success|error|fail|exception)\\s*\\(([\\s\\S]*?)\\)?\\s*?;"
  ]
 ```
 
