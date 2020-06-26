@@ -37,8 +37,9 @@
 				"dimloglines.regExps": {
 					"type" : "array",
 					"default": [
-						"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;",
-						"\\w*[lL]og.*?\\.(Write|assert|debug|warning|info|information|report|success|error|fail|exception)\\s*\\(([\\s\\S]*?)\\)?\\s*?;"
+						"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
+						,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
+						,"\\w*[lL]og.*?\\.(Debugf?|Reportf?|Infof?|Successf?|Warningf?|Errorf?|Failf?|Exceptionf?|Criticalf?|Fatalf?|Fatalln|Panicf?|Panicln|Printf?|Println)\\s*\\([\\s\\S]*?\\)"
 					],
 					"description": "regular expressions to identify log line"
 				}
