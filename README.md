@@ -4,12 +4,12 @@
 
 ## Features
 * 실행 방법
-  * ctrl + shift + p 를 누르고 dim log lines 또는 undim log lines 실행
+  * ctrl + shift + p 를 누르고 dim log lines 또는 undim log lines 실행합니다.
     * dim log lines : 활성화 하기
     * undim log lines : 비활성화 하기
 * 로그 라인 글자 색깔의 흐린 정도를 설정합니다. (설정 값은 Extension.Setting를 참고하세요)
 * 정규식으로 로그 라인 형태를 설정합니다. (정규식은 아래 Extension.Setting를 참고하세요)
-	* 기본 정규식 값을 사용하여 다음과 같은 로그 라인 형태를 설정합니다.
+	* 기본 정규식 값으로 다음과 같은 로그 라인 형태를 설정합니다.
     * "xxLOG(...)" 로 시작하여 ";"(세미콜론)으로 끝나는 문장
     ```cpp
       CILOG(info,
@@ -59,7 +59,7 @@ vscode 1.46 에서 개발되었습니다.
     * "\\w*[lL]og.*?\\.(Debugf?|Reportf?|Infof?|Successf?|Warningf?|Errorf?|Failf?|Exceptionf?|Criticalf?|Fatalf?|Fatalln|Panicf?|Panicln|Printf?|Println)\\s*\\([\\s\\S]*?\\)"
 
 ``` javascript
-"dimloglines.opacity": 0.5,
+"dimloglines.opacity": 0.2,
 "dimloglines.regExps": [
   "\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
   ,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
