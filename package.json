@@ -1,4 +1,5 @@
 {
+	"publisher": "uttntt",
 	"name": "dimloglines",
 	"displayName": "DimLogLines",
 	"description": "dim log lines",
@@ -9,6 +10,7 @@
 	"categories": [
 		"Other"
 	],
+	"extensionPack": [ "uttntt.dimloglines"],
 	"activationEvents": [
 		"onCommand:dimloglines.dim",
 		"onCommand:undimloglines.undim"

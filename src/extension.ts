@@ -47,11 +47,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 		for (var i in regExpsStrings) {
 			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
-			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
 		}
 		console.log("regex\n" + regExpArr);
 
-		let foldingRanges: vscode.FoldingRange[] = [];
 		const text = activeEditor.document.getText();
 		const logLines: vscode.DecorationOptions[] = [];
 		let match;
@@ -61,8 +59,6 @@ export function activate(context: vscode.ExtensionContext) {
 				const endPos = activeEditor.document.positionAt(match.index + match[0].length);
 				const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: match[0] };
 				logLines.push(decoration);
-
-				foldingRanges.push(new vscode.FoldingRange(startPos.line, endPos.line));
 			}
 		}
 		activeEditor.setDecorations(dimDecoration, logLines);
