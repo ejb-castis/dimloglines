@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 let dimLogLines = true;
 let opacity = 0.2;
 let dimDecoration: vscode.TextEditorDecorationType;
-let regExpsStrings : Array<string>;
+let regExpsStrings: Array<string>;
 
 function readConfig() {
 	let config = vscode.workspace.getConfiguration('dimloglines');
@@ -18,24 +18,18 @@ function readConfig() {
 
 function createDimDecorator() {
 	if (dimDecoration) {
-			dimDecoration.dispose();
+		dimDecoration.dispose();
 	}
-	dimDecoration = vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions> {
-			textDecoration:
+	dimDecoration = vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions>{
+		textDecoration:
 			`none;
 			opacity: ${opacity}`
 	});
 }
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
 	console.log('dimloglines is now active');
 
-	// create a decorator type that we use to decorate large numbers
 	let timeout: NodeJS.Timer | undefined = undefined;
 	let activeEditor = vscode.window.activeTextEditor;
 	function updateDecorations() {
@@ -51,17 +45,17 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		let regExpArr : Array<RegExp> = [];
+		let regExpArr: Array<RegExp> = [];
 
 		for (var i in regExpsStrings) {
 			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
 			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
 		}
-
 		// regExpArr.push(/\w*LOG\s*\([\s\S]*?\)?\s*?;/g);
 		// regExpArr.push(/\w*[lL]og.*?\.(Write|assert|debug|warning|info|information|report|success|error|fail|exception)\s*\(([\s\S]*?)\)?\s*?;/g);
-
 		console.log("regex\n" + regExpArr);
+
+		let foldingRanges: vscode.FoldingRange[] = [];
 		const text = activeEditor.document.getText();
 		const logLines: vscode.DecorationOptions[] = [];
 		let match;
@@ -70,9 +64,9 @@ export function activate(context: vscode.ExtensionContext) {
 				const startPos = activeEditor.document.positionAt(match.index);
 				const endPos = activeEditor.document.positionAt(match.index + match[0].length);
 				const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: match[0] };
-				if (match[0].length > 0) {
-					logLines.push(decoration);
-				}
+				logLines.push(decoration);
+
+				foldingRanges.push(new vscode.FoldingRange(startPos.line, endPos.line));
 			}
 		}
 		activeEditor.setDecorations(dimDecoration, logLines);
@@ -103,9 +97,6 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	}, null, context.subscriptions);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('dimloglines.dim', () => {
 		console.log('dim');
 		dimLogLines = true;
