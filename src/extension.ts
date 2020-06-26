@@ -1,5 +1,3 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
 let dimLogLines = true;
@@ -51,8 +49,6 @@ export function activate(context: vscode.ExtensionContext) {
 			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
 			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
 		}
-		// regExpArr.push(/\w*LOG\s*\([\s\S]*?\)?\s*?;/g);
-		// regExpArr.push(/\w*[lL]og.*?\.(Write|assert|debug|warning|info|information|report|success|error|fail|exception)\s*\(([\s\S]*?)\)?\s*?;/g);
 		console.log("regex\n" + regExpArr);
 
 		let foldingRanges: vscode.FoldingRange[] = [];
@@ -116,7 +112,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(disposable2);
 }
-// this method is called when your extension is deactivated
+
 export function deactivate() {
 	console.log('dimloglines is now deactive!');
 }
