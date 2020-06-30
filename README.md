@@ -70,6 +70,11 @@ vscode 1.46 에서 개발되었습니다.
 ## Known Issues
 
 
+## References
+
+* https://github.com/AndrewMorsillo/vscode-dimmer
+* https://github.com/Microsoft/vscode-extension-samples
+
 ## Release Notes
 
 ### 0.0.1
