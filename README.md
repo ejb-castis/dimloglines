@@ -77,6 +77,10 @@ vscode 1.46 에서 개발되었습니다.
 
 ## Release Notes
 
+### 0.0.2
+
+upload icon
+
 ### 0.0.1
 
 Initial release
