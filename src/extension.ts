@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let regExpArr: Array<RegExp> = [];
 
 		for (var i in regExpsStrings) {
-			regExpArr.push(RegExp(regExpsStrings[i], 'g'));
+			regExpArr.push(RegExp(regExpsStrings[i], 'gm'));
 		}
 		console.log("regex\n" + regExpArr);
 

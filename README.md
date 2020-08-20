@@ -1,16 +1,24 @@
-# dimloglines
+# DimLogLines
 
-로그 라인 글자 색깔을 흐리게 만들어 줍니다.
+Dim the color of the log lines in the code
 
 ## Features
-* 실행 방법
-  * ctrl + shift + p 를 누르고 dim log lines 또는 undim log lines 실행합니다.
-    * dim log lines : 활성화 하기
-    * undim log lines : 비활성화 하기
-* 로그 라인 글자 색깔의 흐린 정도를 설정합니다. (설정 값은 Extension.Setting를 참고하세요)
-* 정규식으로 로그 라인 형태를 설정합니다. (정규식은 아래 Extension.Setting를 참고하세요)
-	* 기본 정규식 값으로 다음과 같은 로그 라인 형태를 설정합니다.
-    * "xxLOG(...)" 로 시작하여 ";"(세미콜론)으로 끝나는 문장
+
+* Activate or Deactivate
+  * Activate : dim log lines
+    * Press ctrl + shift + p, excute "dim log lines"
+  * Deactivate : undim log lines
+    * Press ctrl + shift + p, excute "undim log lines"
+
+* Set the opacity of the color
+    * Refer to Extension Settings below
+
+* Set regular expression to specify the log line format
+    * Refer to Extension Settings below
+
+* Default settings specify the following formats
+    * Starts with "xxLOG(...)", ends with  ";"
+
     ```cpp
       CILOG(info,
         "[{}] pid[{}], success to find avc sync word, skip_total[{}]",
@@ -24,46 +32,59 @@
 
       LOG(error) << "hello";
     ```
-    * "xxlogxx.info|debug|등등(...)" 로 시작하여 ";"(세미콜론)으로 끝나는 문장
+
+    * Starts with "xxlogxx.info|debug|...", ends with  ";"
+
     ```cpp
     logger.Write(string("mainThread"), string(""), CiLogEvent::eDebug, string("test"));
 
     theLogger.info(WHERE1(m_channelID), "mpeg2ts SegmentType : %s", g_cfg->GetMpeg2tsSegmentType().c_str());
 
-    logger.info("hello,world");
+    logger.info("hello,world :)");
 
     LOGGER.debug("hello,{}",world);
     ```
-    * "xxlogxx.Info|Debug|등등(..." 로 시작하여 ")"(괄호)으로 끝나는 문장
+
+    * Starts with "xxlogxx.Info|Debug|...", ends with  ")"
 
     ```go
       clog.Debugf("[%s] origin check success.", a.addr)
 
       log.Fatal("fatal error")
 
-      log.Println("hello, World!!!")
+      log.Println("hello, World!!! :)")
+
+      log.Fatalf("can not enable coredump, error(%s)", err.Error())
+
+      clog.Infof1(vfile.ReqID(), "big contents without supporting Range header => bypass")
+
+      clog.Errorf1("failed to handle message, %s, %v", noti.hashKey, string(noti.message), err)
+      clog.Errorf1(reqID, "%v", err)
+
+      clog.Debugf1(reqID, "to origin, %s %s %v timeout:%v", req.Method, req.URL, req.Header, timeout)
     ```
 
 ## Requirements
 
-vscode 1.46 에서 개발되었습니다.
+Built with VSCODE 1.46
 
 ## Extension Settings
 
-* `dimloglines.opacity`: 로그 라인 글자 색깔의 흐린 정도 값으로 0과 1사이의 값을 설정합니다.
+* `dimloglines.opacity`: opacity for the color of log lines, between 0 and 1
   * default value : 0.2
-* `dimloglines.regExps`: 로그 라인을 정규식으로 설정합니다.
+* `dimloglines.regExps`: regular expressions for the log line format
   * default values :
     * "\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
     * "\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
-    * "\\w*[lL]og.*?\\.(Debugf?|Reportf?|Infof?|Successf?|Warningf?|Errorf?|Failf?|Exceptionf?|Criticalf?|Fatalf?|Fatalln|Panicf?|Panicln|Printf?|Println)\\s*\\([\\s\\S]*?\\)"
+    * "\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
 
+* default values in VSCODE:
 ``` javascript
 "dimloglines.opacity": 0.2,
 "dimloglines.regExps": [
   "\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
   ,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
-  ,"\\w*[lL]og.*?\\.(Debugf?|Reportf?|Infof?|Successf?|Warningf?|Errorf?|Failf?|Exceptionf?|Criticalf?|Fatalf?|Fatalln|Panicf?|Panicln|Printf?|Println)\\s*\\([\\s\\S]*?\\)"
+  ,"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
  ]
 ```
 
@@ -77,10 +98,15 @@ vscode 1.46 에서 개발되었습니다.
 
 ## Release Notes
 
+### 0.0.3
+
+- add multiline option in RegExp constructor
+- update default regex
+
 ### 0.0.2
 
-upload icon
+- upload icon
 
 ### 0.0.1
 
-Initial release
+- Initial release

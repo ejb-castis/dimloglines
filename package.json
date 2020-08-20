@@ -2,8 +2,8 @@
 	"publisher": "uttntt",
 	"name": "dimloglines",
 	"displayName": "DimLogLines",
-	"description": "dim log lines",
-	"version": "0.0.2",
+	"description": "dim log lines specified by regular expressions in the code",
+	"version": "0.0.3",
 	"icon": "images/dimlog.png",
 	"license" : "Free",
   "repository": {
@@ -45,7 +45,7 @@
 					"default": [
 						"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
 						,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
-						,"\\w*[lL]og.*?\\.(Debugf?|Reportf?|Infof?|Successf?|Warningf?|Errorf?|Failf?|Exceptionf?|Criticalf?|Fatalf?|Fatalln|Panicf?|Panicln|Printf?|Println)\\s*\\([\\s\\S]*?\\)"
+						,"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
 					],
 					"description": "regular expressions to identify log line"
 				}
