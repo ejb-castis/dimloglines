@@ -1,4 +1,4 @@
-# DimLogLines
+# DimLogLines 
 
 Dim the color of the log lines in the code
 
