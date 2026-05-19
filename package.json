@@ -3,7 +3,7 @@
 	"name": "dimloglines",
 	"displayName": "DimLogLines",
 	"description": "dim log lines specified by regular expressions in the code",
-	"version": "0.0.3",
+	"version": "0.4.0",
 	"icon": "images/dimlog.png",
 	"license": "Free",
 	"repository": {
