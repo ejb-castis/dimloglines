@@ -5,18 +5,20 @@
 	"description": "dim log lines specified by regular expressions in the code",
 	"version": "0.0.3",
 	"icon": "images/dimlog.png",
-	"license" : "Free",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/uttntt/dimloglines.git"
-  },
+	"license": "Free",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/uttntt/dimloglines.git"
+	},
 	"engines": {
 		"vscode": "^1.46.0"
 	},
 	"categories": [
 		"Other"
 	],
-	"extensionPack": [ "uttntt.dimloglines"],
+	"extensionPack": [
+		"uttntt.dimloglines"
+	],
 	"activationEvents": [
 		"onCommand:dimloglines.dim",
 		"onCommand:undimloglines.undim"
@@ -34,18 +36,18 @@
 			}
 		],
 		"configuration": {
-      "properties": {
-        "dimloglines.opacity": {
-          "default": 0.2,
-          "type": "number",
-          "description": "value between 0 and 1 used for the opacity for the dimmed log lines"
+			"properties": {
+				"dimloglines.opacity": {
+					"default": 0.2,
+					"type": "number",
+					"description": "value between 0 and 1 used for the opacity for the dimmed log lines"
 				},
 				"dimloglines.regExps": {
-					"type" : "array",
+					"type": "array",
 					"default": [
-						"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
-						,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
-						,"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
+						"\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;",
+						"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;",
+						"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
 					],
 					"description": "regular expressions to identify log line"
 				}
@@ -61,16 +63,20 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.46.0",
-		"@types/glob": "^7.1.1",
+		"@types/glob": "^7.2.0",
 		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.11.0",
-		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.30.0",
-		"@typescript-eslint/eslint-plugin": "^2.30.0",
-		"glob": "^7.1.6",
-		"mocha": "^10.2.0",
-		"typescript": "^3.8.3",
+		"@types/node": "^20.19.41",
+		"@types/vscode": "^1.46.0",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
+		"eslint": "^8.57.1",
+		"glob": "^7.2.3",
+		"mocha": "^10.8.2",
+		"typescript": "^5.9.3",
 		"vscode-test": "^1.3.0"
+	},
+	"overrides": {
+		"minimatch": "^3.1.5",
+		"serialize-javascript": "^7.0.5"
 	}
 }

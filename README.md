@@ -68,6 +68,16 @@ Dim the color of the log lines in the code
 
 Built with VSCODE 1.46
 
+## Security
+
+If you find a security issue, please do not open a public issue first.
+
+1. Report privately to the maintainer.
+2. Include reproduction steps, affected versions, and impact.
+3. Acknowledge and triage quickly, then release a fix and publish notes.
+
+For dependency-related findings, include the package name, vulnerable version range, and suggested patched version.
+
 ## Extension Settings
 
 * `dimloglines.opacity`: opacity for the color of log lines, between 0 and 1
@@ -86,6 +96,40 @@ Built with VSCODE 1.46
   ,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
   ,"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
  ]
+```
+
+## Safe Regex Guidelines
+
+This extension executes user-provided regular expressions from `dimloglines.regExps`.
+Unsafe patterns can cause heavy backtracking and freeze the editor on large files.
+
+Use these guidelines:
+
+* Keep patterns simple and specific.
+* Avoid ambiguous nested quantifiers such as `(.*)+`, `(.+)*`, `(a|aa)+`.
+* Prefer explicit token sets and boundaries over broad wildcards.
+* Keep the number of configured patterns as low as possible.
+* Validate new patterns on small sample files before applying to very large files.
+
+If you notice slowdowns after adding a pattern, remove the most recent regex first and test again.
+
+## Dependency Update Policy
+
+To reduce supply-chain risk, keep dependencies patched regularly.
+
+Recommended routine:
+
+1. Review Dependabot alerts weekly.
+2. Apply security updates to vulnerable dependencies first.
+3. Run checks before release.
+
+Example commands:
+
+```sh
+npm audit
+npm audit fix
+npm outdated
+npm test
 ```
 
 ## Known Issues

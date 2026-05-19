@@ -28,7 +28,7 @@ function createDimDecorator() {
 export function activate(context: vscode.ExtensionContext) {
 	console.log('dimloglines is now active');
 
-	let timeout: NodeJS.Timer | undefined = undefined;
+	let timeout: ReturnType<typeof setTimeout> | undefined = undefined;
 	let activeEditor = vscode.window.activeTextEditor;
 	function updateDecorations() {
 		if (!activeEditor) {
