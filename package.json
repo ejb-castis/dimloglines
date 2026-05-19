@@ -16,12 +16,9 @@
 	"categories": [
 		"Other"
 	],
-	"extensionPack": [
-		"uttntt.dimloglines"
-	],
 	"activationEvents": [
 		"onCommand:dimloglines.dim",
-		"onCommand:undimloglines.undim"
+		"onCommand:dimloglines.undim"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -49,7 +46,104 @@
 						"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;",
 						"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
 					],
-					"description": "regular expressions to identify log line"
+					"description": "fallback regular expressions to identify log lines when detectionMode is regex or both"
+				},
+				"dimloglines.detectionMode": {
+					"default": "builtin",
+					"type": "string",
+					"enum": [
+						"builtin",
+						"regex",
+						"both"
+					],
+					"description": "log detection strategy: built-in scanner, regular expressions, or both"
+				},
+				"dimloglines.scanMode": {
+					"default": "visible",
+					"type": "string",
+					"enum": [
+						"visible",
+						"document"
+					],
+					"description": "scan only the visible editor window or the full document"
+				},
+				"dimloglines.visibleContextLines": {
+					"default": 120,
+					"type": "number",
+					"minimum": 1,
+					"description": "number of lines before and after the visible editor range to include when scanMode is visible"
+				},
+				"dimloglines.loggerNames": {
+					"type": "array",
+					"default": [
+						"console",
+						"logger",
+						"log",
+						"LOGGER",
+						"clog"
+					],
+					"description": "logger object names used by the built-in scanner"
+				},
+				"dimloglines.logMethods": {
+					"type": "array",
+					"default": [
+						"trace",
+						"debug",
+						"info",
+						"information",
+						"warn",
+						"warning",
+						"error",
+						"fail",
+						"exception",
+						"critical",
+						"fatal",
+						"panic",
+						"log",
+						"print",
+						"write",
+						"assert",
+						"report",
+						"success"
+					],
+					"description": "logger method names used by the built-in scanner"
+				},
+				"dimloglines.methodSuffixes": {
+					"type": "array",
+					"default": [
+						"",
+						"f",
+						"ln",
+						"fln",
+						"f1"
+					],
+					"description": "method suffixes accepted by the built-in scanner, such as f and ln"
+				},
+				"dimloglines.logFunctions": {
+					"type": "array",
+					"default": [
+						"LOG",
+						"CILOG",
+						"DASHLOG"
+					],
+					"description": "function or macro names used by the built-in scanner"
+				},
+				"dimloglines.caseInsensitiveMethods": {
+					"default": true,
+					"type": "boolean",
+					"description": "match logger methods case-insensitively in the built-in scanner"
+				},
+				"dimloglines.maxFileSizeKb": {
+					"default": 1024,
+					"type": "number",
+					"minimum": 1,
+					"description": "maximum document size in KB to scan for dimmed log lines"
+				},
+				"dimloglines.maxMatches": {
+					"default": 5000,
+					"type": "number",
+					"minimum": 1,
+					"description": "maximum number of matched ranges to decorate in one document"
 				}
 			}
 		}

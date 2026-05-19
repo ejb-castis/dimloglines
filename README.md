@@ -13,7 +13,10 @@ Dim the color of the log lines in the code
 * Set the opacity of the color
     * Refer to Extension Settings below
 
-* Set regular expression to specify the log line format
+* Set logger names, logger methods, and log function names to specify the log line format
+    * Refer to Extension Settings below
+
+* Use regular expressions as a fallback for custom log formats
     * Refer to Extension Settings below
 
 * Default settings specify the following formats
@@ -82,21 +85,67 @@ For dependency-related findings, include the package name, vulnerable version ra
 
 * `dimloglines.opacity`: opacity for the color of log lines, between 0 and 1
   * default value : 0.2
-* `dimloglines.regExps`: regular expressions for the log line format
+* `dimloglines.detectionMode`: log detection strategy
+  * values : `builtin`, `regex`, `both`
+  * default value : `builtin`
+* `dimloglines.scanMode`: scan only the visible editor window or the full document
+  * values : `visible`, `document`
+  * default value : `visible`
+* `dimloglines.visibleContextLines`: number of lines before and after the visible editor range to include when `scanMode` is `visible`
+  * default value : 20
+* `dimloglines.loggerNames`: logger object names used by the built-in scanner
+  * default values : `console`, `logger`, `log`, `LOGGER`, `clog`
+* `dimloglines.logMethods`: logger method names used by the built-in scanner
+  * default values : `trace`, `debug`, `info`, `information`, `warn`, `warning`, `error`, `fail`, `exception`, `critical`, `fatal`, `panic`, `log`, `print`, `write`, `assert`, `report`, `success`
+* `dimloglines.methodSuffixes`: method suffixes accepted by the built-in scanner
+  * default values : empty string, `f`, `ln`, `fln`, `f1`
+* `dimloglines.logFunctions`: function or macro names used by the built-in scanner
+  * default values : `LOG`, `CILOG`, `DASHLOG`
+* `dimloglines.caseInsensitiveMethods`: match logger methods case-insensitively in the built-in scanner
+  * default value : true
+* `dimloglines.regExps`: fallback regular expressions for the log line format
   * default values :
     * "\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
     * "\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
     * "\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
+* `dimloglines.maxFileSizeKb`: maximum document size in KB to scan
+  * default value : 1024
+* `dimloglines.maxMatches`: maximum number of matched ranges to decorate
+  * default value : 5000
 
 * default values in VSCODE:
 ``` javascript
 "dimloglines.opacity": 0.2,
+"dimloglines.detectionMode": "builtin",
+"dimloglines.scanMode": "visible",
+"dimloglines.visibleContextLines": 20,
+"dimloglines.loggerNames": ["console", "logger", "log", "LOGGER", "clog"],
+"dimloglines.logMethods": ["trace", "debug", "info", "information", "warn", "warning", "error", "fail", "exception", "critical", "fatal", "panic", "log", "print", "write", "assert", "report", "success"],
+"dimloglines.methodSuffixes": ["", "f", "ln", "fln", "f1"],
+"dimloglines.logFunctions": ["LOG", "CILOG", "DASHLOG"],
+"dimloglines.caseInsensitiveMethods": true,
 "dimloglines.regExps": [
   "\\w*LOG\\s*\\([\\s\\S]*?\\)?\\s*?;"
   ,"\\w*[lL][oO][gG].*?\\.(Write|assert|debug|report|info|information|success|warning|error|fail|exception|critical)\\s*\\([\\s\\S]*?\\)?\\s*?;"
   ,"\\w*[lL]og.*?\\.(Debug|Report|Info|Success|Warning|Error|Fail|Exception|Critical|Fatal|Fatalln|Panic|Panicln|Print|Println)\\w*\\s*\\([\\s\\S]*?\\)[\\t ]*$"
- ]
+ ],
+"dimloglines.maxFileSizeKb": 1024,
+"dimloglines.maxMatches": 5000
 ```
+
+## Scan Behavior
+
+By default, DimLogLines does not scan the full file. It scans the current visible editor range plus the configured context lines before and after it.
+
+* `scanMode: "visible"`
+  * scans the current visible editor range plus `visibleContextLines`
+  * recalculates decorations when the editor scrolls or the visible range changes
+  * keeps large files responsive because only the visible window is scanned
+* `scanMode: "document"`
+  * scans the full document
+  * applies `maxFileSizeKb` as a full-document scan guard
+
+`maxMatches` is still applied in both scan modes as a safety limit for the number of decorated ranges.
 
 ## Safe Regex Guidelines
 
